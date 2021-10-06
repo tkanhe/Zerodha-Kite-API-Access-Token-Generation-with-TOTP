@@ -8,3 +8,5 @@ First, you will have to register for 2Factor TOTP on the Zerodha Kite website. W
 - Selenium ```pip install selenium```
 - PyOTP ```pip install pyotp```
 - Chrome Webdriver https://chromedriver.chromium.org/downloads
+
+For more info about what is TOTP and its registration procedure, please refer to this: https://tradewithpython.com/totp-login-zerodha-kiteconnect
