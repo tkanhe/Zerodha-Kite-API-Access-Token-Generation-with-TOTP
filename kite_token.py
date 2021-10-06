@@ -1,3 +1,4 @@
+import sys
 import pyotp
 from kiteconnect import KiteConnect
 from urllib.parse import urlparse, parse_qs
@@ -10,7 +11,7 @@ totp_key = 'Your TOTP key'
 username = 'Your username'  # ZYXXXX
 password = 'Your password'
 api_key = 'API key'
-client_secret = 'Client secret'
+client_secret = 'API secret'
 
 kite = KiteConnect(api_key=api_key)
 totp = pyotp.TOTP(totp_key)
@@ -55,7 +56,9 @@ def check():
     try:
         token = read_file()
     except (Exception,):
-        token = 'None'
+        print('Getting the access token!')
+        setup()
+        sys.exit()
     kite.set_access_token(token)
     try:
         kite.profile()
