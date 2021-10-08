@@ -14,7 +14,6 @@ api_key = 'API key'
 client_secret = 'API secret'
 
 kite = KiteConnect(api_key=api_key)
-totp = pyotp.TOTP(totp_key)
 
 
 def read_file():
@@ -38,14 +37,13 @@ def setup():
     WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//*[@id=\"userid\"]"))).send_keys(username)
     WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//*[@id=\"password\"]"))).send_keys(password)
     driver.find_element_by_xpath("//*[@id=\"container\"]/div/div/div/form/div[4]/button").click()
-    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//*[@id=\"totp\"]"))).send_keys(totp.now())
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//*[@id=\"totp\"]"))).send_keys(pyotp.TOTP(totp_key).now())
     driver.find_element_by_xpath("//*[@id=\"container\"]/div/div/div[2]/form/div[3]/button").click()
     WebDriverWait(driver, 10).until((EC.url_changes(driver.current_url)))
 
     parsed = urlparse(driver.current_url)
     request_token = parse_qs(parsed.query)['request_token'][0]
-    data = kite.generate_session(request_token, api_secret=client_secret)
-    access_token = data['access_token']
+    access_token = kite.generate_session(request_token, api_secret=client_secret)['access_token']
     kite.set_access_token(access_token)
     write_file(access_token)
     print('Got the access token!!!')
@@ -55,15 +53,15 @@ def setup():
 def check():
     try:
         token = read_file()
-    except (Exception,):
+    except FileNotFoundError:
         print('Getting the access token!')
         setup()
         sys.exit()
     kite.set_access_token(token)
     try:
-        kite.profile()
+        profile = kite.profile()
         print('You already have a access token!')
-        print(kite.profile())
+        print(profile)
     except (Exception,):
         print('Getting the access token!')
         setup()
