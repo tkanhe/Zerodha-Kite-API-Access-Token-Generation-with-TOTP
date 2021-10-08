@@ -8,8 +8,8 @@ First, you will have to register for 2Factor TOTP on the Zerodha Kite website. W
 - With the help of the *get-post requests session*, we can get the access token.
 
 #### Dependencies: 
-- PyOTP  ```pip install pyotp```
-- Kiteconnect  ```pip install kiteconnect```
+- PyOTP ```pip install pyotp```
+- Kiteconnect ```pip install kiteconnect```
 
 
 ### Method2 (With Selenium Webdriver):
@@ -17,9 +17,9 @@ First, you will have to register for 2Factor TOTP on the Zerodha Kite website. W
 - Put the ***chromedriver.exe*** file in the same folder as the script.
 
 #### Dependencies: 
-- Selenium  ```pip install selenium```
-- PyOTP  ```pip install pyotp```
-- Kiteconnect  ```pip install kiteconnect```
+- Selenium ```pip install selenium```
+- PyOTP ```pip install pyotp```
+- Kiteconnect ```pip install kiteconnect```
 
 
 *For more info about what TOTP is and its registration procedure, please refer to this: https://tradewithpython.com/totp-login-zerodha-kiteconnect*.
