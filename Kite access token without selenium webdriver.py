@@ -28,7 +28,7 @@ def setup():
     session = requests.Session()
     request_id = session.post("https://kite.zerodha.com/api/login", {"user_id": username, "password": password}).json()['data']['request_id']
     session.post("https://kite.zerodha.com/api/twofa", {"user_id": username, "request_id": request_id, "twofa_value": pyotp.TOTP(totp_key).now()})
-    api_session = session.get("https://kite.trade/connect/login?api_key=" + api_key)
+    api_session = session.get(f"https://kite.trade/connect/login?api_key={api_key}")
     parsed = urlparse(api_session.url)
     request_token = parse_qs(parsed.query)['request_token'][0]
     access_token = kite.generate_session(request_token, api_secret=client_secret)['access_token']
